@@ -1,6 +1,7 @@
 package ie.atu;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -16,6 +17,15 @@ public class FeignController {
         this.feignService = feignService;
     }
 
+    @GetMapping("/feign/todos")
+    public List<TodoResponse> getAllTodos() {
+        return feignService.fetchAllTodos();
+    }
+
+    @GetMapping("/feign/todos/{id}")
+    public TodoResponse getTodoById(@PathVariable("id") int id) {
+        return feignService.fetchTodoById(id);
+    }
     @GetMapping("/feign")
     public String getFeignData() throws Exception, InterruptedException{
         long startTime = System.currentTimeMillis();
